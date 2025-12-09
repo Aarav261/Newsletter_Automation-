@@ -44,12 +44,11 @@ def extract_meetup_events(links, Limit_links=10):
             page = browser.new_page()
             agentql_page = agentql.wrap(page)
             agentql_page.goto(link)
-            response = agentql_page.query_data(QUERY_DETAILS, mode='fast')
-            for event in response['event_details']:
-                event_list.append(event)
+            response = agentql_page.query_data(QUERY_DETAILS)
+            # response is now a single event dict, not wrapped in event_details[]
+            event_list.append(response)
             page.close()
         
-
         browser.close()
 
     return event_list
