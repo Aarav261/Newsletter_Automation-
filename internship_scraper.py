@@ -1,25 +1,27 @@
 from playwright.sync_api import sync_playwright
 import agentql
 
+
 QUERY = """
 {
-    events[]{
+    internships[]{
         name
-        date
+        link
+        company
         location
-        link}
-
+    }
 }"""
+
 
 links= []
 with sync_playwright() as playwright:
     browser = playwright.chromium.launch(headless=False)
     page = browser.new_page()
     agentql_page = agentql.wrap(page)
-    agentql_page.goto("https://www.meetup.com/en-AU/find/?keywords=tech&location=au--Canterbury&source=EVENTS&distance=tenMiles")
+    agentql_page.goto("https://au.gradconnection.com/internships/engineering-software/melbourne/")
     response = agentql_page.query_data(QUERY)
     
-    for link in response['events']:
+    for link in response['internships']:
         links.append(link['link'])
     print(links)
 
