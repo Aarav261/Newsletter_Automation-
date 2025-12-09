@@ -17,8 +17,11 @@ def insert_event(event_data):
     else:
         next_id = 1
     
-    event_data['id'] = next_id
-    supabase.table("Events").insert(event_data).execute()
+    # Filter out null values and keep only fields with data
+    filtered_data = {k: v for k, v in event_data.items() if v is not None and v != ""}
+    filtered_data['id'] = next_id
+    
+    supabase.table("Events").insert(filtered_data).execute()
 
 def insert_internship(internship_data):
     # Get the current max ID and increment
@@ -29,5 +32,8 @@ def insert_internship(internship_data):
     else:
         next_id = 1
     
-    internship_data['id'] = next_id
-    supabase.table("Internships").insert(internship_data).execute()
+    # Filter out null values and keep only fields with data
+    filtered_data = {k: v for k, v in internship_data.items() if v is not None and v != ""}
+    filtered_data['id'] = next_id
+    
+    supabase.table("Internships").insert(filtered_data).execute()

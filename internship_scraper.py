@@ -4,7 +4,7 @@ import agentql
 QUERY = """
 {
     internships[]{
-        name
+        name(of the company)
         link
         company
         location

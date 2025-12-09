@@ -6,16 +6,12 @@ import agentql
 QUERY = """
 {
     events[]{
-        name
-        date
-        location
         link}
 
 }"""
 
 QUERY_DETAILS = """{
         event_details[]{
-        id
         title
         link
         date
@@ -39,8 +35,7 @@ def extract_meetup_links(URL_OF_MEETUP_LISTING_PAGE):
 
     return links
 
-Limit_links = 2
-def extract_meetup_events(links):
+def extract_meetup_events(links, Limit_links=10):
     event_list = []
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=False)

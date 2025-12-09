@@ -7,9 +7,11 @@ def main():
 
     URL_OF_MEETUP_LISTING_PAGE = "https://www.meetup.com/en-AU/find/?keywords=tech&location=au--Canterbury&source=EVENTS&distance=tenMiles"
     internship_links = extract_internship_links(URL_OF_INTERNSHIP_LISTING_PAGE)
+
+    LIMIT_LINKS = 5
     
     links = extract_meetup_links(URL_OF_MEETUP_LISTING_PAGE)
-    events = extract_meetup_events(links)
+    events = extract_meetup_events(links, Limit_links=LIMIT_LINKS)
 
     for event in events:
         insert_event(event)
