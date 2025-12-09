@@ -12,7 +12,7 @@ QUERY = """
 }"""
 
 def extract_internship_links(URL_OF_INTERNSHIP_LISTING_PAGE):
-    links= []
+    internships = []
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=False)
         page = browser.new_page()
@@ -20,8 +20,9 @@ def extract_internship_links(URL_OF_INTERNSHIP_LISTING_PAGE):
         agentql_page.goto(URL_OF_INTERNSHIP_LISTING_PAGE)
         response = agentql_page.query_data(QUERY)
         
-        for link in response['internships']:
-            links.append(link['link'])
+        # Capture full internship records (name, link, company, location)
+        for internship in response['internships']:
+            internships.append(internship)
 
         browser.close()
-    return links
+    return internships
