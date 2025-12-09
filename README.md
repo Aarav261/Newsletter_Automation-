@@ -26,8 +26,8 @@ cd advanced_scraper
 
 2. **Create and activate virtual environment**
 ```bash
-python -m venv advanced_scaper
-source advanced_scaper/bin/activate  # On macOS/Linux
+python -m venv advanced_scraper
+source advanced_scraper/bin/activate  # On macOS/Linux
 ```
 
 3. **Install dependencies**
@@ -101,7 +101,7 @@ advanced_scraper/
 ├── internship_scraper.py   # GradConnection internship scraper
 ├── database.py             # Supabase database operations
 ├── .env                    # Environment variables (not in repo)
-└── advanced_scaper/        # Virtual environment
+└── advanced_scraper/       # Virtual environment
 ```
 
 ## Configuration
