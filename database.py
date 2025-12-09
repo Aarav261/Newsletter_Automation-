@@ -1,5 +1,4 @@
 import os
-import uuid
 from dotenv import load_dotenv
 from supabase import create_client, Client
 
@@ -10,8 +9,13 @@ key: str = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
 
 def insert_event(event_data):
-    # Add a unique ID if not present
-    if 'id' not in event_data or event_data['id'] is None:
-        event_data['id'] = str(uuid.uuid4())
+    # Get the current max ID and increment
+    result = supabase.table("Events").select("id").order("id", desc=True).limit(1).execute()
     
+    if result.data and len(result.data) > 0:
+        next_id = result.data[0]['id'] + 1
+    else:
+        next_id = 1
+    
+    event_data['id'] = next_id
     supabase.table("Events").insert(event_data).execute()
