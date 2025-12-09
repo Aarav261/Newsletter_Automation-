@@ -1,6 +1,6 @@
 def main():
     from Event_scraper import extract_meetup_links, extract_meetup_events
-    from database import insert_event
+    from database import insert_event , insert_internship
     from internship_scraper import extract_internship_links
 
     URL_OF_INTERNSHIP_LISTING_PAGE = "https://au.gradconnection.com/internships/engineering-software/melbourne/"
@@ -13,7 +13,9 @@ def main():
 
     for event in events:
         insert_event(event)
-        
+
+    for internship in internship_links:
+        insert_internship(internship)
         
 
 if __name__ == "__main__":

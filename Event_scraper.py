@@ -23,13 +23,13 @@ QUERY_DETAILS = """{
         location}
 }"""
 
-def extract_meetup_links():
+def extract_meetup_links(URL_OF_MEETUP_LISTING_PAGE):
     links= []
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=False)
         page = browser.new_page()
         agentql_page = agentql.wrap(page)
-        agentql_page.goto("https://www.meetup.com/en-AU/find/?keywords=tech&location=au--Canterbury&source=EVENTS&distance=tenMiles")
+        agentql_page.goto(URL_OF_MEETUP_LISTING_PAGE)
         response = agentql_page.query_data(QUERY, mode = 'fast')
         
         for link in response['events']:
