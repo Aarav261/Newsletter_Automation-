@@ -9,16 +9,15 @@ key: str = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
 
 def insert_event(event_data):
-    # Get the current max ID and increment
-    result = supabase.table("Events").select("id").order("id", desc=True).limit(1).execute()
-    
-    if result.data and len(result.data) > 0:
-        next_id = result.data[0]['id'] + 1
-    else:
-        next_id = 1
-    
-   
-    supabase.table("Events").insert(event_data).execute()
+    # drop null/empty values
+    clean = {k: v for k, v in event_data.items() if v not in (None, "", [], {})}
+
+    # get next id
+    resp = supabase.table("Events").select("id").order("id", desc=True).limit(1).execute()
+    last_id = resp.data[0]["id"] if resp.data else 0
+    clean["id"] = last_id + 1
+
+    supabase.table("Events").insert(clean).execute()
 
 def insert_internship(internship_data):
     # Get the current max ID and increment

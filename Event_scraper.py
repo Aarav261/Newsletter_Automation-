@@ -10,16 +10,6 @@ QUERY = """
 
 }"""
 
-QUERY_DETAILS = """{
-        
-        title
-        link
-        date
-        description
-        location
-        
-}"""
-
 def extract_meetup_links(URL_OF_MEETUP_LISTING_PAGE):
     links= []
     with sync_playwright() as playwright:
@@ -36,23 +26,25 @@ def extract_meetup_links(URL_OF_MEETUP_LISTING_PAGE):
 
     return links
 
+QUERY_DETAILS = """{
+    title
+    link
+    date
+    description
+    location
+}"""
+
 def extract_meetup_events(links, Limit_links=10):
     event_list = []
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=False)
-        
         for link in links[:Limit_links]:
             page = browser.new_page()
             agentql_page = agentql.wrap(page)
             agentql_page.goto(link)
-            response = agentql_page.query_data(QUERY_DETAILS)
-            # response is now a single event dict, not wrapped in event_details[]
+            response = agentql_page.query_data(QUERY_DETAILS)  # single event dict
             event_list.append(response)
             page.close()
-        
         browser.close()
-
     return event_list
-
-            
             
