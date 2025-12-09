@@ -11,12 +11,13 @@ QUERY = """
 }"""
 
 QUERY_DETAILS = """{
-        event_details[]{
+        
         title
         link
         date
         description
-        location}
+        location
+        
 }"""
 
 def extract_meetup_links(URL_OF_MEETUP_LISTING_PAGE):
