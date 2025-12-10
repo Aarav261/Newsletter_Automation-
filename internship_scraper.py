@@ -14,7 +14,7 @@ QUERY = """
 def extract_internship_links(URL_OF_INTERNSHIP_LISTING_PAGE):
     internships = []
     with sync_playwright() as playwright:
-        browser = playwright.chromium.launch(headless=False)
+        browser = playwright.chromium.launch(headless=True)
         page = browser.new_page()
         agentql_page = agentql.wrap(page)
         agentql_page.goto(URL_OF_INTERNSHIP_LISTING_PAGE)
