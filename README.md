@@ -1,4 +1,4 @@
-# Cracked_networking
+# Newsletter Automation
 
 An automated web scraper that extracts tech events and internships from Meetup and GradConnection, stores them in a Supabase database, and sends AI-generated newsletter summaries via email using Playwright, AgentQL, and Google Gemini AI.
 
